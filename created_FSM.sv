@@ -139,21 +139,39 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 	  S4:	// ReadData
 	    if (X == 1'b0)
 	      begin
-		 Z = 1'b0;
+		 LdCtr   = 1'b0;
+		 RdyEn   = 1'b0;
+		 Rdy     = 1'b1;
+		 W       = 1'b1;
+		 MStrobe = 1'b0;
+		 MRW     = 1'b1;
+		 Wsel    = 1'b1;
+		 RSel    = 1'b0;
 		 NEXT_STATE <=  Idle;
-	      end else begin
-		 Z = 1'b0;
-		 NEXT_STATE <=  S5;
-	      end	
+	      end 	
 
 	  S5:	// Write
-	    if (X == 1'b0)
+	    if ((M and V) == 1'b0)
 	      begin
-		 Z = 1'b0;
-		 NEXT_STATE <=  S1;
-	      end else begin
-		 Z = 1'b0;
+		 LdCtr   = 1'b1;
+		 RdyEn   = 1'b0;
+		 Rdy     = 1'b0;
+		 W       = 1'b0;
+		 MStrobe = 1'b0;
+		 MRW     = 1'b0;
+		 Wsel    = 1'b0;
+		 RSel    = 1'b0;
 		 NEXT_STATE <=  S6;
+	      end else begin
+		 LdCtr   = 1'b1;
+		 RdyEn   = 1'b0;
+		 Rdy     = 1'b0;
+		 W       = 1'b0;
+		 MStrobe = 1'b0;
+		 MRW     = 1'b0;
+		 Wsel    = 1'b0;
+		 RSel    = 1'b0;
+		 NEXT_STATE <=  S7;
 	      end	
 
 	  S6:	// WriteMiss
