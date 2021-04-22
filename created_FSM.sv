@@ -175,14 +175,18 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 	      end	
 
 	  S6:	// WriteMiss
-	    if (X == 1'b0)
+	    if (1)
 	      begin
-		 Z = 1'b0;
-		 NEXT_STATE <=  S7;
-	      end else begin
-		 Z = 1'b0;
-		 NEXT_STATE <=  S0;
-	      end	
+		 LdCtr   = 1'b1;
+		 RdyEn   = 1'b0;
+		 Rdy     = 1'b0;
+		 W       = 1'b0;
+		 MStrobe = 1'b1;
+		 MRW     = 1'b1;
+		 Wsel    = 1'b0;
+		 RSel    = 1'b0;
+		 NEXT_STATE <=  S8;
+	      end 	
 
 	  S7:	// WriteHit
 	    if (X == 1'b0)
