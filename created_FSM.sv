@@ -113,13 +113,27 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 	      end 	
 
 	  S3:	// ReadMem
-	    if (X == 1'b0)
+	    if (CtrSig)
 	      begin
-		 Z = 1'b0;
+		 LdCtr   = 1'b0;
+		 RdyEn   = 1'b0;
+		 Rdy     = 1'b0;
+		 W       = 1'b0;
+		 MStrobe = 1'b0;
+		 MRW     = 1'b0;
+		 Wsel    = 1'b0;
+		 RSel    = 1'b0;
 		 NEXT_STATE <=  S4;
-	      end else begin
-		 Z = 1'b0;
-		 NEXT_STATE <=  S0;
+	      end else if(~CtrSig) begin
+		 LdCtr   = 1'b0;
+		 RdyEn   = 1'b0;
+		 Rdy     = 1'b0;
+		 W       = 1'b0;
+		 MStrobe = 1'b0;
+		 MRW     = 1'b0;
+		 Wsel    = 1'b0;
+		 RSel    = 1'b0;
+		 NEXT_STATE <=  S3;
 	      end	
 
 	  S4:	// ReadData
