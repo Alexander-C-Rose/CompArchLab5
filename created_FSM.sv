@@ -189,20 +189,56 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 	      end 	
 
 	  S7:	// WriteHit
-	    if (X == 1'b0)
+	    if (1)
 	      begin
-		 Z = 1'b1;
-		 NEXT_STATE <=  Idle;
-	      end else begin
-		 Z = 1'b1;
-		 NEXT_STATE <=  S5;
-	      end
+		 LdCtr   = 1'b1;
+		 RdyEn   = 1'b0;
+		 Rdy     = 1'b0;
+		 W       = 1'b0;
+		 MStrobe = 1'b1;
+		 MRW     = 1'b1;
+		 Wsel    = 1'b0;
+		 RSel    = 1'b0;
+		 NEXT_STATE <=  S8;
+	      end 
 	  
 	  s8:	// WriteMem
-		if (
+		if (CtrSig)
+		  begin
+		 LdCtr   = 1'b0;
+		 RdyEn   = 1'b0;
+		 Rdy     = 1'b0;
+		 W       = 1'b0;
+		 MStrobe = 1'b0;
+		 MRW     = 1'b1;
+		 Wsel    = 1'b0;
+		 RSel    = 1'b0;
+		 NEXT_STATE <=  S9;
+		  end else begin
+		 LdCtr   = 1'b0;
+		 RdyEn   = 1'b0;
+		 Rdy     = 1'b0;
+		 W       = 1'b0;
+		 MStrobe = 1'b0;
+		 MRW     = 1'b1;
+		 Wsel    = 1'b0;
+		 RSel    = 1'b0;
+		 NEXT_STATE <=  S8;
 		  end
+		  
+		  
 	  s9:	// WriteData
-		if (
+		if (1)
+		  begin
+		 LdCtr   = 1'b0;
+		 RdyEn   = 1'b0;
+		 Rdy     = 1'b1;
+		 W       = 1'b1;
+		 MStrobe = 1'b0;
+		 MRW     = 1'b1;
+		 Wsel    = 1'b0;
+		 RSel    = 1'b1;
+		 NEXT_STATE <=  Idle;
 		  end
 	  
 	  default: 
