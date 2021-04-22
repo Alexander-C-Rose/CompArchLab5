@@ -31,13 +31,15 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
    //past this point is merely copy/pasted 
    
 
-   always @(CURRENT_STATE or X)
+   always @(CURRENT_STATE or Strobe)
      begin
  	case(CURRENT_STATE)
 	  Idle:	
-	    if (X == 1'b0)
+	    if (Strobe == 1'b0)
 	      begin
-		 Z = 1'b0;
+		 LdCtr = 1'b1;
+		 RdyEn = 1'b0;
+		 Rdy   = 1'b0;
 		 NEXT_STATE <=  Idle;
 	      end else begin
 		 Z = 1'b0;
