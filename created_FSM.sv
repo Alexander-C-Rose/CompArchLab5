@@ -47,7 +47,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 NEXT_STATE <=  Idle;
 	      end
 
-		  else if  (Strobe == 1'b1 && RW == 1'b1)
+		  else if  (Strobe and RW)
 		  begin
 		 LdCtr   = 1'b1;
 		 RdyEn   = 1'b0;
@@ -60,7 +60,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 NEXT_STATE <=  S5;
 	      end 
 		  
-		  else if (Strobe == 1'b1 && RW == 1'b0)
+		  else if (Strobe == 1'b1 and RW == 1'b0)
 		  begin
 		 LdCtr   = 1'b1;
 		 RdyEn   = 1'b0;
@@ -75,7 +75,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 //maybe add end here? who knows?
 	  
 	  S1:	// Read
-	    if (M == 1'b0 && V == 1'b0)
+	    if (M and V == 1'b0)
 	      begin
 		 LdCtr   = 1'b1;
 		 RdyEn   = 1'b1;
@@ -86,19 +86,16 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 Wsel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S2;
-	      end 
-		  else if(M == 1'b0 && V == 1'b1)
-		  begin
-		 Z = 1'b0;
-		 NEXT_STATE <=  S2;
-	      end	
-		  else if(M == 1'b0 && V == 1'b0)
-		  begin
-		  
-		  end
-		  else if(M == 1'b0 && V == 1'b0)
-		  begin
-		  
+	      end else begin
+		 LdCtr   = 1'b1;
+		 RdyEn   = 1'b1;
+		 Rdy     = 1'b0;
+		 W       = 1'b0;
+		 MStrobe = 1'b0;
+		 MRW     = 1'b0;
+		 Wsel    = 1'b0;
+		 RSel    = 1'b0;
+		 NEXT_STATE <= Idle;
 		  end
 
 	  S2:	// ReadMiss
