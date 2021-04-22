@@ -75,7 +75,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 //maybe add end here? who knows?
 	  
 	  S1:	// Read
-	    if (M and V == 1'b0)
+	    if ((M & V) == 1'b0)
 	      begin
 		 LdCtr   = 1'b1;
 		 RdyEn   = 1'b1;
@@ -243,8 +243,15 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 	  
 	  default: 
 	    begin
-	       NEXT_STATE <=  S0;
-	       Z = 1'b0;	     
+	      NEXT_STATE <=  Idle;
+	     LdCtr   = 1'b1;
+		 RdyEn   = 1'b0;
+		 Rdy     = 1'b0;
+		 W       = 1'b0;
+		 MStrobe = 1'b0;
+		 MRW     = 1'b0;
+		 Wsel    = 1'b0;
+		 RSel    = 1'b0;
 	    end
 	  
 	endcase // case (CURRENT_STATE)	
