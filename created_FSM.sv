@@ -75,7 +75,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		  
 	      end
 	  
-	  S1:	
+	  S1:	// Read
 	    if (X == 1'b0)
 	      begin
 		 Z = 1'b0;
@@ -85,7 +85,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 NEXT_STATE <=  S2;
 	      end	
 
-	  S2:	
+	  S2:	// ReadMiss
 	    if (X == 1'b0)
 	      begin
 		 Z = 1'b0;
@@ -95,7 +95,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 NEXT_STATE <=  S3;
 	      end	
 
-	  S3:	
+	  S3:	// ReadMem
 	    if (X == 1'b0)
 	      begin
 		 Z = 1'b0;
@@ -105,7 +105,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 NEXT_STATE <=  S0;
 	      end	
 
-	  S4:	
+	  S4:	// ReadData
 	    if (X == 1'b0)
 	      begin
 		 Z = 1'b0;
@@ -115,7 +115,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 NEXT_STATE <=  S5;
 	      end	
 
-	  S5:	
+	  S5:	// Write
 	    if (X == 1'b0)
 	      begin
 		 Z = 1'b0;
@@ -125,7 +125,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 NEXT_STATE <=  S6;
 	      end	
 
-	  S6:	
+	  S6:	// WriteMiss
 	    if (X == 1'b0)
 	      begin
 		 Z = 1'b0;
@@ -135,7 +135,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 NEXT_STATE <=  S0;
 	      end	
 
-	  S7:	
+	  S7:	// WriteHit
 	    if (X == 1'b0)
 	      begin
 		 Z = 1'b1;
@@ -145,10 +145,10 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 NEXT_STATE <=  S5;
 	      end
 	  
-	  s8:
+	  s8:	// WriteMem
 		if (
 		  end
-	  s9:
+	  s9:	// WriteData
 		if (
 		  end
 	  
