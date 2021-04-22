@@ -24,7 +24,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
      S7 = 4'd7,
 	 s8 = 4'd8,
 	 s9 = 4'd9,
-     Idle = 4'd8;
+     Idle = 4'd10;
 
    logic [3:0] CURRENT_STATE;
    logic [3:0] NEXT_STATE;
