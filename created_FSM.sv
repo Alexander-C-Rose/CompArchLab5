@@ -58,7 +58,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 Wsel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S5;
-		  end 
+	      end 
 		  
 		  else if (Strobe == 1'b1 && RW == 1'b0)
 		  begin
@@ -72,8 +72,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S1;
 		  end
-		  
-	      end
+		 //maybe add end here? who knows?
 	  
 	  S1:	// Read
 	    if (X == 1'b0)
