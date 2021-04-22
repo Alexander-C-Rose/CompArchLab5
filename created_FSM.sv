@@ -15,16 +15,16 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 	output logic RSel
 	
 	parameter [3:0] S0 = 4'd0,
-     S1 = 4'd1,
-     S2 = 4'd2,
-     S3 = 4'd3,
-     S4 = 4'd4,
-     S5 = 4'd5,
-     S6 = 4'd6,
-     S7 = 4'd7,
-	 s8 = 4'd8,
-	 s9 = 4'd9,
-     Idle = 4'd10;
+     S1 = 4'd1,		// Read
+     S2 = 4'd2,		// ReadMiss
+     S3 = 4'd3,		// ReadMem
+     S4 = 4'd4,		// ReadData
+     S5 = 4'd5,		// Write
+     S6 = 4'd6,		// WriteMiss
+     S7 = 4'd7,		// WriteHit
+	 s8 = 4'd8,		// WriteMem
+	 s9 = 4'd9,		// WriteData
+     Idle = 4'd10;	// Idle
 
    logic [3:0] CURRENT_STATE;
    logic [3:0] NEXT_STATE;
@@ -54,16 +54,6 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		  end else begin
 		  
 	      end
-	  
-	  S0:	
-	    if (X == 1'b0)
-	      begin
-		 Z = 1'b0;
-		 NEXT_STATE <=  S1;
-	      end else begin
-		 Z = 1'b0;
-		 NEXT_STATE <=  S0;
-	      end	
 	  
 	  S1:	
 	    if (X == 1'b0)
@@ -134,6 +124,13 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 Z = 1'b1;
 		 NEXT_STATE <=  S5;
 	      end
+	  
+	  s8:
+		if (
+		  end
+	  s9:
+		if (
+		  end
 	  
 	  default: 
 	    begin
