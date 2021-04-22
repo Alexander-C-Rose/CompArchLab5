@@ -22,9 +22,121 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
      S5 = 4'd5,
      S6 = 4'd6,
      S7 = 4'd7,
+	 s8 = 4'd8,
+	 s9 = 4'd9,
      Idle = 4'd8;
 
    logic [3:0] CURRENT_STATE;
    logic [3:0] NEXT_STATE;
+   //past this point is merely copy/pasted 
+   always @(posedge clk)
+     begin
+	if (reset == 1'b1)	
+	  CURRENT_STATE <=  Idle;
+	else
+	  CURRENT_STATE <=  NEXT_STATE;
+     end
+
+   always @(CURRENT_STATE or X)
+     begin
+ 	case(CURRENT_STATE)
+	  Idle:	
+	    if (X == 1'b0)
+	      begin
+		 Z = 1'b0;
+		 NEXT_STATE <=  Idle;
+	      end else begin
+		 Z = 1'b0;
+		 NEXT_STATE <=  S0;
+	      end
+	  
+	  S0:	
+	    if (X == 1'b0)
+	      begin
+		 Z = 1'b0;
+		 NEXT_STATE <=  S1;
+	      end else begin
+		 Z = 1'b0;
+		 NEXT_STATE <=  S0;
+	      end	
+	  
+	  S1:	
+	    if (X == 1'b0)
+	      begin
+		 Z = 1'b0;
+		 NEXT_STATE <=  Idle;
+	      end else begin
+		 Z = 1'b0;
+		 NEXT_STATE <=  S2;
+	      end	
+
+	  S2:	
+	    if (X == 1'b0)
+	      begin
+		 Z = 1'b0;
+		 NEXT_STATE <=  S1;
+	      end else begin
+		 Z = 1'b0;
+		 NEXT_STATE <=  S3;
+	      end	
+
+	  S3:	
+	    if (X == 1'b0)
+	      begin
+		 Z = 1'b0;
+		 NEXT_STATE <=  S4;
+	      end else begin
+		 Z = 1'b0;
+		 NEXT_STATE <=  S0;
+	      end	
+
+	  S4:	
+	    if (X == 1'b0)
+	      begin
+		 Z = 1'b0;
+		 NEXT_STATE <=  Idle;
+	      end else begin
+		 Z = 1'b0;
+		 NEXT_STATE <=  S5;
+	      end	
+
+	  S5:	
+	    if (X == 1'b0)
+	      begin
+		 Z = 1'b0;
+		 NEXT_STATE <=  S1;
+	      end else begin
+		 Z = 1'b0;
+		 NEXT_STATE <=  S6;
+	      end	
+
+	  S6:	
+	    if (X == 1'b0)
+	      begin
+		 Z = 1'b0;
+		 NEXT_STATE <=  S7;
+	      end else begin
+		 Z = 1'b0;
+		 NEXT_STATE <=  S0;
+	      end	
+
+	  S7:	
+	    if (X == 1'b0)
+	      begin
+		 Z = 1'b1;
+		 NEXT_STATE <=  Idle;
+	      end else begin
+		 Z = 1'b1;
+		 NEXT_STATE <=  S5;
+	      end
+	  
+	  default: 
+	    begin
+	       NEXT_STATE <=  S0;
+	       Z = 1'b0;	     
+	    end
+	  
+	endcase // case (CURRENT_STATE)	
+     end // always @ (CURRENT_STATE or X)
 
 endmodule //fsm
