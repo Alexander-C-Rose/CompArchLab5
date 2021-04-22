@@ -28,7 +28,6 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 
    logic [3:0] CURRENT_STATE;
    logic [3:0] NEXT_STATE;
-   //past this point is merely copy/pasted 
    
 
    always @(CURRENT_STATE or Strobe)
@@ -37,13 +36,23 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 	  Idle:	
 	    if (Strobe == 1'b0)
 	      begin
-		 LdCtr = 1'b1;
-		 RdyEn = 1'b0;
-		 Rdy   = 1'b0;
+		 LdCtr   = 1'b1;
+		 RdyEn   = 1'b0;
+		 Rdy     = 1'b0;
+		 W       = 1'b0;
+		 MStrobe = 1'b0;
+		 MRW     = 1'b0;
+		 Wsel    = 1'b0;
+		 RSel    = 1'b0;
 		 NEXT_STATE <=  Idle;
-	      end else begin
+	      end
+
+		  else if  (Strobe == 1'b1 && RW == 1'b1)
+		  begin
 		 Z = 1'b0;
 		 NEXT_STATE <=  S0;
+		  end else begin
+		  
 	      end
 	  
 	  S0:	
