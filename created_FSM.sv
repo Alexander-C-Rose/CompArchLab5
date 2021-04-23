@@ -126,6 +126,12 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 NEXT_STATE <=  S5;
 	      end
 	  
+	  s8:
+		if
+		  end
+	  s9:
+		  end
+	  
 	  default: 
 	    begin
 	       NEXT_STATE <=  S0;
