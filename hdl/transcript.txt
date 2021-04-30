@@ -1,0 +1,43 @@
+# vsim "+nowarn3829" -error 3015 -voptargs="+acc" -l transcript.txt work.testbench 
+# Start time: 14:57:14 on Apr 30,2021
+# ** Note: (vsim-3812) Design is being optimized...
+# Loading sv_std.std
+# Loading work.testbench(fast)
+# Loading work.top(fast)
+# Loading work.arm(fast)
+# Loading work.controller(fast)
+# Loading work.flopenrc(fast)
+# Loading work.flopenrc(fast__1)
+# Loading work.flopenrc(fast__2)
+# Loading work.conditional(fast)
+# Loading work.flopen(fast)
+# Loading work.flopen(fast__1)
+# Loading work.datapath(fast)
+# Loading work.mux2(fast)
+# Loading work.flopens(fast)
+# Loading work.adder(fast)
+# Loading work.flopenrc(fast__3)
+# Loading work.mux2(fast__1)
+# Loading work.regfile(fast)
+# Loading work.extend(fast)
+# Loading work.mux3(fast)
+# Loading work.alu(fast)
+# Loading work.flopen(fast__2)
+# Loading work.flopen(fast__3)
+# Loading work.floprc(fast)
+# Loading work.floprc(fast__1)
+# Loading work.eqcmp(fast)
+# Loading work.hazard(fast)
+# Loading work.cache(fast)
+# Loading work.tag_ram(fast)
+# Loading work.valid_ram(fast)
+# Loading work.data_ram(fast)
+# Loading work.Comparator(fast)
+# Loading work.CacheControl(fast)
+# Loading work.wait_state(fast)
+# Loading work.imem(fast)
+# Loading work.dmem_wait(fast)
+did you make it chieg ????
+# invalid command name "did"
+did you make it chief???
+# invalid command name "did"
