@@ -19,7 +19,7 @@ module CacheControl(input Strobe,
    logic [7:0]  OutputLogic;
   
    assign DReady = (ReadyEn & M && V && ~DRW) || Ready;
-   assign {LdCtr, ReadyEn, Ready, W, MStrobe, MRW, RSel, WSel} = OutputLogic;
+  /* assign {LdCtr, ReadyEn, Ready, W, MStrobe, MRW, RSel, WSel} = OutputLogic;
 
    parameter [3:0] Idle      = 4'b0000,
                    Read      = 4'b0001,
@@ -31,7 +31,7 @@ module CacheControl(input Strobe,
                    WriteMiss = 4'b0111,
                    WriteMem  = 4'b1000,
                    WriteData = 4'b1001; 
-
+*/
    logic [3:0] CURRENT_STATE;
    logic [3:0] NEXT_STATE;
 
