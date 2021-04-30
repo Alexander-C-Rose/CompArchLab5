@@ -57,7 +57,7 @@ module CacheControl(input Strobe,
 
 endmodule /* Control */
 
-module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, RSel);
+module created_FSM(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, RSel);
 	
 	input logic Strobe;
 	input logic RW;
