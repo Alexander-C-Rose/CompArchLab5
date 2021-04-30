@@ -87,7 +87,7 @@ module CacheControl(input Strobe,
 		 Wsel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  Idle;
-	      end else if  (Strobe and RW) begin
+	      end else if  (Strobe & RW) begin
 		 LdCtr   = 1'b1;
 		 RdyEn   = 1'b0;
 		 Rdy     = 1'b0;
@@ -187,7 +187,7 @@ module CacheControl(input Strobe,
 	    end 	
 
 	  S5:	// Write
-	    if ((M and V) == 1'b0)
+	    if ((M & V) == 1'b0)
 	      begin
 		 LdCtr   = 1'b1;
 		 RdyEn   = 1'b0;
