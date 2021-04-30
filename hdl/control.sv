@@ -16,7 +16,7 @@ module CacheControl(input Strobe,
    logic       ReadyEn;
    logic       LdCtr;
    logic       Ready;   
-   logic [7:0]  OutputLogic;
+  // logic [7:0]  OutputLogic;
   
    assign DReady = (ReadyEn & M && V && ~DRW) || Ready;
   /* assign {LdCtr, ReadyEn, Ready, W, MStrobe, MRW, RSel, WSel} = OutputLogic;
