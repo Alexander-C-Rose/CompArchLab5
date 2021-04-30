@@ -1,18 +1,18 @@
 module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, RSel);
 	
 	input logic Strobe;
-	input logic RW
-	input logic M
-	input logic V
-	input logic CtrSig
+	input logic RW;
+	input logic M;
+	input logic V;
+	input logic CtrSig;
 	
-	output logic LdCtr
-	output logic RdyEn
-	output logic Rdy
-	output logic W 
-	output logic MStrobe
-	output logic MRW
-	output logic RSel
+	output logic LdCtr;
+	output logic RdyEn;
+	output logic Rdy;
+	output logic W ;
+	output logic MStrobe;
+	output logic MRW;
+	output logic RSel;
 	
 	parameter [3:0] S0 = 4'd0,
      S1 = 4'd1,		// Read
@@ -45,10 +45,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 Wsel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  Idle;
-	      end
-
-		  else if  (Strobe and RW)
-		  begin
+	      end else if  (Strobe and RW) begin
 		 LdCtr   = 1'b1;
 		 RdyEn   = 1'b0;
 		 Rdy     = 1'b0;
@@ -58,10 +55,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 Wsel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S5;
-	      end 
-		  
-		  else if (Strobe == 1'b1 and RW == 1'b0)
-		  begin
+	      end else if (Strobe == 1'b1 and RW == 1'b0) begin
 		 LdCtr   = 1'b1;
 		 RdyEn   = 1'b0;
 		 Rdy     = 1'b0;
