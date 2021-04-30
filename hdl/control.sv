@@ -65,8 +65,8 @@ module CacheControl(input Strobe,
      S5 = 4'd5,		// Write
      S6 = 4'd6,		// WriteMiss
      S7 = 4'd7,		// WriteHit
-	 s8 = 4'd8,		// WriteMem
-	 s9 = 4'd9,		// WriteData
+	 S8 = 4'd8,		// WriteMem
+	 S9 = 4'd9,		// WriteData
      Idle = 4'd10;	// Idle
 
    logic [3:0] CURRENT_STATE;
