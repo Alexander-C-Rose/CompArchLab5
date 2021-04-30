@@ -40,7 +40,9 @@ module CacheControl(input Strobe,
    wait_state WaitStateCtr (LdCtr, WSCLoadVal, CtrSig, clk);
 
    // Insert FSM Here
-  created_FSM fsm (.Strobe(Strobe),
+  created_FSM fsm (	.clk(clk),
+					.reset(reset),
+					.Strobe(Strobe),
 					.RW(RW), 
 					.M(M), 
 					.V(V), 
@@ -57,7 +59,7 @@ module CacheControl(input Strobe,
 
 endmodule /* Control */
 
-module created_FSM(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, RSel);
+module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, RSel);
 	
 	input logic Strobe;
 	input logic RW;
