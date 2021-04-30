@@ -61,6 +61,8 @@ endmodule /* Control */
 
 module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, RSel);
 	
+	input logic clk;
+	input logic reset;
 	input logic Strobe;
 	input logic RW;
 	input logic M;
