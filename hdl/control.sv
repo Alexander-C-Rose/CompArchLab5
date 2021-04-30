@@ -68,10 +68,11 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 	output logic LdCtr;
 	output logic RdyEn;
 	output logic Rdy;
-	output logic W ;
+	output logic W;
 	output logic MStrobe;
 	output logic MRW;
 	output logic RSel;
+	output logic Wsel;
 	
 	parameter [3:0] S0 = 4'd0,
      S1 = 4'd1,		// Read
@@ -190,7 +191,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 	    end	
 
 	  S4:	// ReadData
-	    if (X == 1'b0)
+	    if (1)
 	     begin
 		 LdCtr   = 1'b0;
 		 RdyEn   = 1'b0;
@@ -204,7 +205,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 	    end 	
 
 	  S5:	// Write
-	    if ((M and V) == 1'b0)
+	    if ((M & V) == 1'b0)
 	      begin
 		 LdCtr   = 1'b1;
 		 RdyEn   = 1'b0;
@@ -310,5 +311,4 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 	endcase // case (CURRENT_STATE)	
     end // always @ (CURRENT_STATE or X)
 
-endmodule //fsm
-
+	endmodule //fsm
