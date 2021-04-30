@@ -239,7 +239,7 @@ module CacheControl(input Strobe,
 		 NEXT_STATE <=  S8;
 	      end 
 	  
-	  s8:	// WriteMem
+	  S8:	// WriteMem
 		if (CtrSig)
 		  begin
 		 LdCtr   = 1'b0;
@@ -264,7 +264,7 @@ module CacheControl(input Strobe,
 		  end
 		  
 		  
-	  s9:	// WriteData
+	  S9:	// WriteData
 		if (1)
 		  begin
 		 LdCtr   = 1'b0;
