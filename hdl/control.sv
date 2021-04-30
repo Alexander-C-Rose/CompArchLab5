@@ -174,7 +174,7 @@ module CacheControl(input Strobe,
 	    end	
 
 	  S4:	// ReadData
-	    if (X == 1'b0)
+	    if (1)
 	     begin
 		 LdCtr   = 1'b0;
 		 RdyEn   = 1'b0;
