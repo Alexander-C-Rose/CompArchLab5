@@ -51,10 +51,11 @@ module CacheControl(input Strobe,
 	output logic LdCtr;
 	output logic RdyEn;
 	output logic Rdy;
-	output logic W ;
+	output logic W;
 	output logic MStrobe;
 	output logic MRW;
 	output logic RSel;
+	output logic Wsel;
 	
 	parameter [3:0] S0 = 4'd0,
      S1 = 4'd1,		// Read
