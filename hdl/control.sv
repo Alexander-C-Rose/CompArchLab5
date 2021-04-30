@@ -16,6 +16,7 @@ module CacheControl(input Strobe,
    logic       ReadyEn;
    logic       LdCtr;
    logic       Ready;   
+        
   // logic [7:0]  OutputLogic;
   
    assign DReady = (ReadyEn & M & V & ~DRW) | Ready;
@@ -43,7 +44,7 @@ module CacheControl(input Strobe,
   created_FSM fsm (	.clk(clk),
 					.reset(reset),
 					.Strobe(Strobe),
-					.RW(RW), 
+					.DRW(DRW), 
 					.M(M), 
 					.V(V), 
 					.CtrSig(CtrSig), 
@@ -53,18 +54,18 @@ module CacheControl(input Strobe,
 					.W(W), 
 					.MStrobe(MStrobe), 
 					.MRW(MRW), 
-					.Wsel(Wsel), 
-					.RSel(Rsel));
+					.WSel(WSel), 
+					.RSel(RSel));
 
 
 endmodule /* Control */
 
-module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, RSel);
+module created_FSM(clk, reset, Strobe, DRW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, WSel, RSel);
 	
 	input logic clk;
 	input logic reset;
 	input logic Strobe;
-	input logic RW;
+	input logic DRW;
 	input logic M;
 	input logic V;
 	input logic CtrSig;
@@ -76,7 +77,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
 	output logic MStrobe;
 	output logic MRW;
 	output logic RSel;
-	output logic Wsel;
+	output logic WSel;
 	
 	parameter [3:0] S0 = 4'd0,
      S1 = 4'd1,		// Read
@@ -102,7 +103,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
     end
 
 
-   always @(CURRENT_STATE or Strobe or RW or M or V or reset or CtrSig)
+   always @(CURRENT_STATE or Strobe or DRW or M or V or reset or CtrSig)
     begin
  	case(CURRENT_STATE)
 	  Idle:	
@@ -114,27 +115,27 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
 		 W       = 1'b0;
 		 MStrobe = 1'b0;
 		 MRW     = 1'b0;
-		 Wsel    = 1'b0;
+		 WSel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  Idle;
-	      end else if  (Strobe & RW) begin
+	      end else if  (Strobe & DRW) begin
 		 LdCtr   = 1'b1;
 		 RdyEn   = 1'b0;
 		 Rdy     = 1'b0;
 		 W       = 1'b0;
 		 MStrobe = 1'b0;
 		 MRW     = 1'b0;
-		 Wsel    = 1'b0;
+		 WSel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S5;
-	      end else if ((Strobe == 1'b1) & (RW == 1'b0)) begin
+	      end else if ((Strobe == 1'b1) & (DRW == 1'b0)) begin
 		 LdCtr   = 1'b1;
 		 RdyEn   = 1'b0;
 		 Rdy     = 1'b0;
 		 W       = 1'b0;
 		 MStrobe = 1'b0;
 		 MRW     = 1'b0;
-		 Wsel    = 1'b0;
+		 WSel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S1;
 		  end
@@ -149,7 +150,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
 		 W       = 1'b0;
 		 MStrobe = 1'b0;
 		 MRW     = 1'b0;
-		 Wsel    = 1'b0;
+		 WSel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S2;
 	      end else begin
@@ -159,7 +160,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
 		 W       = 1'b0;
 		 MStrobe = 1'b0;
 		 MRW     = 1'b0;
-		 Wsel    = 1'b0;
+		 WSel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <= Idle;
 		  end
@@ -173,7 +174,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
 		 W       = 1'b0;
 		 MStrobe = 1'b1;
 		 MRW     = 1'b0;
-		 Wsel    = 1'b0;
+		 WSel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S3;
 	    end 	
@@ -187,7 +188,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
 		 W       = 1'b0;
 		 MStrobe = 1'b0;
 		 MRW     = 1'b0;
-		 Wsel    = 1'b0;
+		 WSel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S4;
 	    end else if(~CtrSig) begin
@@ -197,7 +198,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
 		 W       = 1'b0;
 		 MStrobe = 1'b0;
 		 MRW     = 1'b0;
-		 Wsel    = 1'b0;
+		 WSel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S3;
 	    end	
@@ -211,7 +212,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
 		 W       = 1'b1;
 		 MStrobe = 1'b0;
 		 MRW     = 1'b1;
-		 Wsel    = 1'b1;
+		 WSel    = 1'b1;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  Idle;
 	    end 	
@@ -225,7 +226,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
 		 W       = 1'b0;
 		 MStrobe = 1'b0;
 		 MRW     = 1'b0;
-		 Wsel    = 1'b0;
+		 WSel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S6;
 	      end else begin
@@ -235,7 +236,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
 		 W       = 1'b0;
 		 MStrobe = 1'b0;
 		 MRW     = 1'b0;
-		 Wsel    = 1'b0;
+		 WSel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S7;
 	      end	
@@ -249,7 +250,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
 		 W       = 1'b0;
 		 MStrobe = 1'b1;
 		 MRW     = 1'b1;
-		 Wsel    = 1'b0;
+		 WSel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S8;
 	      end 	
@@ -263,7 +264,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
 		 W       = 1'b0;
 		 MStrobe = 1'b1;
 		 MRW     = 1'b1;
-		 Wsel    = 1'b0;
+		 WSel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S8;
 	      end 
@@ -277,7 +278,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
 		 W       = 1'b0;
 		 MStrobe = 1'b0;
 		 MRW     = 1'b1;
-		 Wsel    = 1'b0;
+		 WSel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S9;
 		  end else begin
@@ -287,7 +288,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
 		 W       = 1'b0;
 		 MStrobe = 1'b0;
 		 MRW     = 1'b1;
-		 Wsel    = 1'b0;
+		 WSel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S8;
 		  end
@@ -302,7 +303,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
 		 W       = 1'b1;
 		 MStrobe = 1'b0;
 		 MRW     = 1'b1;
-		 Wsel    = 1'b0;
+		 WSel    = 1'b0;
 		 RSel    = 1'b1;
 		 NEXT_STATE <=  Idle;
 		  end
@@ -316,7 +317,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
 		 W       = 1'b0;
 		 MStrobe = 1'b0;
 		 MRW     = 1'b0;
-		 Wsel    = 1'b0;
+		 WSel    = 1'b0;
 		 RSel    = 1'b0;
 	    end
 	  
