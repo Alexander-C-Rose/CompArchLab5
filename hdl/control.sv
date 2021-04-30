@@ -93,6 +93,14 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
    logic [3:0] CURRENT_STATE;
    logic [3:0] NEXT_STATE;
    
+   always @(posedge clk)
+     begin
+	if (reset == 1'b1)	
+	  CURRENT_STATE <=  Idle;
+	else
+	  CURRENT_STATE <=  NEXT_STATE;
+    end
+
 
    always @(CURRENT_STATE or Strobe)
     begin
