@@ -32,7 +32,7 @@ set CACHE_TAG_FILE	./blank_cache_files/cache_tag.dat
 set CACHE_DATA_FILE	./blank_cache_files/cache_data.dat
 
 # compile source files
-vlog wait_state.v control.sv cache.sv comparator.v cacheram.v imem.v dmem_wait.v arm_pipelined.sv top.sv tb.sv
+vlog wait_state.v control.sv cache.sv comparator.v cacheram.v imem.v dmem_wait.v arm_pipelined.sv top.sv tb.sv created_FSM.sv
 
 # start and run simulation
 vsim +nowarn3829 -error 3015 -voptargs=+acc -l transcript.txt work.testbench
