@@ -32,8 +32,8 @@ module CacheControl(input Strobe,
                    WriteMem  = 4'b1000,
                    WriteData = 4'b1001; 
 */
-   logic [3:0] CURRENT_STATE;
-   logic [3:0] NEXT_STATE;
+  // logic [3:0] CURRENT_STATE;
+  // logic [3:0] NEXT_STATE;
 
    // wait state = 100 cycles
    assign WSCLoadVal = 8'h4;   
