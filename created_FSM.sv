@@ -45,8 +45,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 Wsel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  Idle;
-	      end else if  (Strobe and RW)
-		  begin
+	      end else if  (Strobe and RW) begin
 		 LdCtr   = 1'b1;
 		 RdyEn   = 1'b0;
 		 Rdy     = 1'b0;
@@ -56,8 +55,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 Wsel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S5;
-	      end else if (Strobe == 1'b1 and RW == 1'b0)
-		  begin
+	      end else if (Strobe == 1'b1 and RW == 1'b0) begin
 		 LdCtr   = 1'b1;
 		 RdyEn   = 1'b0;
 		 Rdy     = 1'b0;
