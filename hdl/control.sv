@@ -102,7 +102,7 @@ module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, M
     end
 
 
-   always @(CURRENT_STATE or Strobe)
+   always @(CURRENT_STATE or Strobe or RW or M or V or reset or CtrSig)
     begin
  	case(CURRENT_STATE)
 	  Idle:	
