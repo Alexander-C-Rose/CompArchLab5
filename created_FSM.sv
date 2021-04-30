@@ -1,5 +1,7 @@
-module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, RSel);
+module created_FSM(clk, reset, Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, RSel);
 	
+	input logic clk;
+	input logic reset;
 	input logic Strobe;
 	input logic RW;
 	input logic M;
@@ -9,10 +11,11 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 	output logic LdCtr;
 	output logic RdyEn;
 	output logic Rdy;
-	output logic W ;
+	output logic W;
 	output logic MStrobe;
 	output logic MRW;
 	output logic RSel;
+	output logic Wsel;
 	
 	parameter [3:0] S0 = 4'd0,
      S1 = 4'd1,		// Read
@@ -22,8 +25,8 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
      S5 = 4'd5,		// Write
      S6 = 4'd6,		// WriteMiss
      S7 = 4'd7,		// WriteHit
-	 s8 = 4'd8,		// WriteMem
-	 s9 = 4'd9,		// WriteData
+	 S8 = 4'd8,		// WriteMem
+	 S9 = 4'd9,		// WriteData
      Idle = 4'd10;	// Idle
 
    logic [3:0] CURRENT_STATE;
@@ -35,8 +38,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 	  CURRENT_STATE <=  Idle;
 	else
 	  CURRENT_STATE <=  NEXT_STATE;
-     end
-
+    end
 
    always @(CURRENT_STATE or Strobe)
     begin
@@ -53,7 +55,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 Wsel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  Idle;
-	      end else if  (Strobe and RW) begin
+	      end else if  (Strobe & RW) begin
 		 LdCtr   = 1'b1;
 		 RdyEn   = 1'b0;
 		 Rdy     = 1'b0;
@@ -63,7 +65,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 Wsel    = 1'b0;
 		 RSel    = 1'b0;
 		 NEXT_STATE <=  S5;
-	      end else if (Strobe == 1'b1 and RW == 1'b0) begin
+	      end else if (Strobe == 1'b1 & RW == 1'b0) begin
 		 LdCtr   = 1'b1;
 		 RdyEn   = 1'b0;
 		 Rdy     = 1'b0;
@@ -139,7 +141,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 	    end	
 
 	  S4:	// ReadData
-	    if (X == 1'b0)
+	    if (1)
 	     begin
 		 LdCtr   = 1'b0;
 		 RdyEn   = 1'b0;
@@ -153,7 +155,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 	    end 	
 
 	  S5:	// Write
-	    if ((M and V) == 1'b0)
+	    if ((M & V) == 1'b0)
 	      begin
 		 LdCtr   = 1'b1;
 		 RdyEn   = 1'b0;
@@ -204,7 +206,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		 NEXT_STATE <=  S8;
 	      end 
 	  
-	  s8:	// WriteMem
+	  S8:	// WriteMem
 		if (CtrSig)
 		  begin
 		 LdCtr   = 1'b0;
@@ -229,7 +231,7 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 		  end
 		  
 		  
-	  s9:	// WriteData
+	  S9:	// WriteData
 		if (1)
 		  begin
 		 LdCtr   = 1'b0;
@@ -259,4 +261,4 @@ module fsm(Strobe, RW, M, V, CtrSig, LdCtr, RdyEn, Rdy, W, MStrobe, MRW, Wsel, R
 	endcase // case (CURRENT_STATE)	
     end // always @ (CURRENT_STATE or X)
 
-endmodule //fsm
+	endmodule //fsm
